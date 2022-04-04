@@ -1,0 +1,52 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">
+      <a href="/nominal/create" class="btn btn-primary">
+        <i class="nav-icon far fa-plus-square"></i>
+        Tambah
+      </a>
+    </h3>
+  </div>
+  <!-- /.card-header -->
+  <div class="card-body">
+    <table id="example2" class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>Nama Koin</th>
+          <th>Jumlah Koin</th>
+          <th>Harga</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% nominal.map((item,index)=>{ %>
+        <tr>
+          <td><%= index+1 %></td>
+          <td><%= item.coinName %></td>
+          <td><%= item.coinQuantity %></td>
+          <td><%= item.price %></td>
+
+          <td>
+            <form
+              action="/nominal/delete/<%= item._id %>?_method=DELETE"
+              method="post"
+            >
+              <a
+                class="btn btn-info btn-sm"
+                href="/nominal/edit/<%= item._id %>"
+              >
+                <i class="nav-icon far fa-edit"></i> Ubah
+              </a>
+              <button class="btn btn-danger btn-sm">
+                <i class="fas fa-trash"></i> Hapus
+              </button>
+            </form>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+  <!-- /.card-body -->
+</div>

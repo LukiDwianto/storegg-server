@@ -1,0 +1,87 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">
+      <a href="/transaction/create" class="btn btn-primary">
+        <i class="nav-icon far fa-plus-square"></i>
+        Tambah
+      </a>
+    </h3>
+  </div>
+  <!-- /.card-header -->
+  <div class="card-body">
+    <table id="example2" class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>No.</th>
+
+          <th>Nama Game</th>
+          <th>Item</th>
+          <th>total harga</th>
+          <th>status</th>
+          <th>Nama Player</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% transaction.map((item,index)=>{ %>
+        <tr>
+          <td><%= index+1 %></td>
+          <td>
+            <ul class="list-inline">
+              <li class="list-inline-item">
+                <% console.log(item.historyVoucherTopup); %>
+                <img
+                  width="48px"
+                  height="56px"
+                  src="/uploads/<%=
+                item.historyVoucherTopup.thumbnail %>"
+                  alt="thumbnail"
+                />
+              </li>
+            </ul>
+            <br />
+            <%= item.historyVoucherTopup.gameName %>
+            <br />
+            <%= item.historyVoucherTopup.category %>
+          </td>
+          <td><%= item?.historyVoucherTopup?.coinQuantity %></td>
+          <td><%= item?.historyVoucherTopup?.price %></td>
+          <td>
+            <% if(item.status=='success'){ %>
+            <span class="badge badge-success"> Sukses</span>
+            <% }else if(item.status=='failed'){ %>
+            <span class="badge badge-danger"> Gagal</span><% }else{ %>
+            <span class="badge badge-info"> Pending</span>
+            <% } %>
+          </td>
+          <td><%= item?.player?.name ?? '-' %></td>
+          <td>
+            <% if(item.status=='pending'){ %>
+            <form
+              action="/transaction/update-status/<%= item._id %>?status=failed&_method=PUT"
+              method="post"
+              style="display: inline-block"
+            >
+              <button class="btn btn-danger btn-sm" type="submit">
+                <i class="nav-icon fa fa-trash"></i> Tolak
+              </button>
+            </form>
+            <form
+              action="/transaction/update-status/<%= item._id %>?status=success&_method=PUT"
+              method="post"
+              style="display: inline-block"
+            >
+              <button class="btn btn-success btn-sm" type="submit">
+                <i class="nav-icon fa fa-check"></i> Terima
+              </button>
+            </form>
+            <% }else{ %> - <% } %>
+          </td>
+        </tr>
+
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+  <!-- /.card-body -->
+</div>
