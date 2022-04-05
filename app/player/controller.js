@@ -34,7 +34,7 @@ module.exports = {
           .status(404)
           .json({ message: "voucher game tidak ditemukan.!" });
       }
-      const payment = await Payment.find();
+      const payment = await Payment.find().populate("banks");
 
       res.status(200).json({ data: { detail: voucher, payment: payment } });
     } catch (err) {
