@@ -35,7 +35,7 @@ module.exports = {
               avatar: filename,
             });
             await player.save();
-            delete player["password"];
+            delete player._doc.password;
             res.status(201).json({ data: player });
           } catch (error) {
             if (error && error.name === "ValidationError") {
