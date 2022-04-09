@@ -36,7 +36,7 @@ module.exports = {
             });
             await player.save();
             delete player._doc.password;
-            res.status(201).json({ data: player });
+            return res.status(201).json({ data: player });
           } catch (error) {
             if (error && error.name === "ValidationError") {
               return res.status(422).json({
@@ -45,16 +45,16 @@ module.exports = {
                 fields: error.errors,
               });
             }
-            next(err);
+            next(error);
           }
         });
       } else {
         let player = new Player(payload);
         await player.save();
+
         delete player._doc.password;
-        res.status(201).json({ data: player });
+        return res.status(201).json({ data: player });
       }
-      res.status(201).json({ message: payload });
     } catch (error) {
       if (error && error.name === "ValidationError") {
         return res.status(422).json({
