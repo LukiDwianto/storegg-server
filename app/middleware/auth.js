@@ -30,7 +30,8 @@ module.exports = {
       next();
     } catch (error) {
       res.status(401).json({
-        error: "Not Authorized",
+        error: true,
+        message: "Not Authorized",
       });
     }
   },
