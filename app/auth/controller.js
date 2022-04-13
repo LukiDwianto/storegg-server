@@ -80,7 +80,7 @@ module.exports = {
                   id: data._id,
                   username: data.username,
                   email: data.email,
-                  nama: data.name,
+                  name: data.name,
                   phoneNumber: data.phoneNumber,
                   avatar: data.avatar,
                 },
